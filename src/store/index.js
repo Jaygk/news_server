@@ -1,7 +1,11 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-mongoose.connect('mongodb://localhost:27017/news', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/news', {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+})
 
 const newsItem = new Schema({
   name: {
@@ -16,6 +20,6 @@ const newsItem = new Schema({
     unique: true,
     type: Array,
   },
-});
+})
 
-module.exports = mongoose.model('news', newsItem);
+module.exports = mongoose.model('news', newsItem)
