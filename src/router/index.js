@@ -1,6 +1,7 @@
 const Router = require('koa-router')
 const router = new Router()
 const News = require('../store')
+const detail = require('../request/details')
 
 router.get('/api/sina', async ctx => {
   try {
@@ -29,6 +30,18 @@ router.get('/api/weibo', async ctx => {
 router.get('/', async ctx => {
   ctx.body = {
     data: 'ok'
+  }
+})
+
+router.get('/api/sina/detail', async ctx => {
+  try {
+    const url = ctx.query.url
+    const data = await detail.getSinaDetail(url)
+    ctx.body = {
+      result: data
+    }
+  } catch(error) {
+    console.error(error);
   }
 })
 

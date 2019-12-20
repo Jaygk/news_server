@@ -5,13 +5,13 @@ module.exports = async () => {
   try {
     const $ = await request('https://news.sina.com.cn/')
 
-    const list = $('.ct_t_01').find('a')
+    const list = $('#syncad_1').find('a')
 
     let arr = []
     list.each((i, item) => {
       let obj = {}
-      obj.title = item.children[0].data
-      obj.url = item.attribs.href
+      obj.title = $(item).text().trim()
+      obj.url = $(item).attr('href')
       arr.push(obj)
     })
 
@@ -22,7 +22,7 @@ module.exports = async () => {
     })
 
     const temp = await News.find({ name: 'sinaNews' })
-    if (temp) {
+    if (temp.length !== 0) {
       await News.updateOne({ name: 'sinaNews' }, { data: arr })
     } else {
       await news.save()

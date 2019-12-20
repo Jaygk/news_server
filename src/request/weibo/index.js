@@ -24,7 +24,7 @@ module.exports = async () => {
     })
 
     const temp = await News.find({ name: 'weibo' })
-    if (temp) {
+    if (temp.length !== 0) {
       await News.updateOne({ name: 'weibo' }, { data: arr })
     } else {
       await news.save()
