@@ -1,7 +1,7 @@
-const getSinaList = require('./sina')
-const getWeiboList = require('./weibo')
+const getRecommendList = require('./recommend')
+const getWeiboList = require('./China')
 
 module.exports = () => {
-  getSinaList()
+  getRecommendList()
   getWeiboList()
 }
