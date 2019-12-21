@@ -1,47 +1,67 @@
 const Router = require('koa-router')
 const router = new Router()
 const News = require('../store')
-const detail = require('../request/details')
+const getDetail = require('../request/details')
 
-router.get('/api/sina', async ctx => {
+// 获取推荐列表
+router.get('/api/recommend', async ctx => {
+  const page = ctx.query.page || 0
+  const limit = ctx.query.limit || 30
+
   try {
-    const res = await News.find({ name: 'sinaNews' })
+    const res = await News.find({ name: 'recommend' })
+    const data = res[0].data
+    const result = data.splice(page * limit, limit)
 
     ctx.body = {
-      data: res,
+      data: result
     }
   } catch (error) {
     console.error(error)
   }
 })
 
-router.get('/api/weibo', async ctx => {
+// 获取国内新闻列表
+router.get('/api/china', async ctx => {
+  const page = ctx.query.page || 0
+  const limit = ctx.query.limit || 30
+
   try {
-    const res = await News.find({ name: 'weibo' })
+    const res = await News.find({ name: 'china' })
+    const data = res[0].data
+    const result = data.splice(page * limit, limit)
 
     ctx.body = {
-      data: res,
+      data: result
     }
   } catch (error) {
     console.error(error)
   }
 })
 
-router.get('/', async ctx => {
-  ctx.body = {
-    data: 'ok'
-  }
-})
-
-router.get('/api/sina/detail', async ctx => {
+// 获取推荐新闻详情
+router.get('/api/recommend/detail', async ctx => {
   try {
     const url = ctx.query.url
-    const data = await detail.getSinaDetail(url)
+    const data = await getDetail(url)
     ctx.body = {
       result: data
     }
-  } catch(error) {
-    console.error(error);
+  } catch (error) {
+    console.error(error)
+  }
+})
+
+// 获取国内新闻详情
+router.get('/api/china/detail', async ctx => {
+  try {
+    const url = ctx.query.url
+    const data = await getDetail(url)
+    ctx.body = {
+      result: data
+    }
+  } catch (error) {
+    console.error(error)
   }
 })
 
