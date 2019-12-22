@@ -19,7 +19,7 @@ module.exports = async url => {
       .text()
       .trim()
 
-    const list = $('#article').find('p')
+    const list = $('.article').find('p')
 
     let arr = []
     let index = 0
