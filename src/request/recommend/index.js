@@ -4,7 +4,7 @@ const News = require('../../store')
 // 爬取推荐新闻列表（标题+url）
 module.exports = async () => {
   try {
-    const $ = await request('/')
+    const $ = await request('https://news.sina.com.cn/')
 
     const list = $('#syncad_1').find('a')
 
@@ -12,7 +12,7 @@ module.exports = async () => {
     list.each((i, item) => {
       let obj = {}
       obj.title = $(item).text().trim()
-      obj.url = $(item).attr('href').split('.cn')[1]
+      obj.url = $(item).attr('href')
       arr.push(obj)
     })
 
