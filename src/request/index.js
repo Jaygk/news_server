@@ -1,7 +1,11 @@
 const getRecommendList = require('./recommend')
-const getWeiboList = require('./China')
+const getChinaList = require('./China')
+const getWorldList = require('./world')
+const getTechList = require('./tech')
 
 module.exports = () => {
   getRecommendList()
-  getWeiboList()
+  getChinaList()
+  getWorldList()
+  getTechList()
 }
