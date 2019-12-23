@@ -60,11 +60,26 @@ module.exports = async url => {
         $(item)
           .find('strong')
           .text()
-          .trim().length !== 0
+          .trim().length !== 0 ||
+        ($(item).attr('cms-style') &&
+          $(item)
+            .attr('cms-style')
+            .includes('strong-Bold'))
       ) {
         obj.strong = true
       } else {
         obj.strong = false
+      }
+
+      if (
+        $(item).attr('cms-style') &&
+        $(item)
+          .attr('cms-style')
+          .includes('align-Center')
+      ) {
+        obj.center = true
+      } else {
+        obj.center = false
       }
 
       obj.text = $(item)
