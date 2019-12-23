@@ -6,15 +6,23 @@ module.exports = async () => {
   try {
     const $ = await request('https://news.sina.com.cn/china')
     // console.log($.html());
-    const list = $('.switch-box').next('div').find('ul > li')
+    const list = $('.switch-box')
+      .next('div')
+      .find('ul > li')
     // console.log(list.length);
 
     let arr = []
     list.each((i, item) => {
       let obj = {}
 
-      obj.title = $(item).find('a').text().trim()
-      obj.url = $(item).find('a').attr('href')
+      obj.title = $(item)
+        .find('a')
+        .text()
+        .trim()
+      obj.url = $(item)
+        .find('a')
+        .attr('href')
+        .trim()
 
       arr.push(obj)
     })
@@ -24,7 +32,7 @@ module.exports = async () => {
     const news = new News({
       name: 'china',
       type: '国内',
-      data: arr,
+      data: arr
     })
 
     const temp = await News.find({ name: 'china' })

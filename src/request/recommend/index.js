@@ -11,15 +11,19 @@ module.exports = async () => {
     let arr = []
     list.each((i, item) => {
       let obj = {}
-      obj.title = $(item).text().trim()
-      obj.url = $(item).attr('href')
+      obj.title = $(item)
+        .text()
+        .trim()
+      obj.url = $(item)
+        .attr('href')
+        .trim()
       arr.push(obj)
     })
 
     const news = new News({
       name: 'recommend',
       type: '推荐',
-      data: arr,
+      data: arr
     })
 
     const temp = await News.find({ name: 'recommend' })

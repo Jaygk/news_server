@@ -19,6 +19,7 @@ module.exports = async () => {
       obj.url = $(item)
         .find('a')
         .attr('href')
+        .trim()
 
       const ele = arr.find(res => res.title == obj.title)
 

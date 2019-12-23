@@ -17,7 +17,7 @@ module.exports = async () => {
       // console.log(item);
       const obj = {}
       obj.title = item.title
-      obj.url = item.url
+      obj.url = item.url.trim()
 
       arr.push(obj)
     })
