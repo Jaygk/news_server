@@ -19,10 +19,29 @@ module.exports = async url => {
       .text()
       .trim()
 
+    // let keywords = ''
+    // if ($('#keywords').attr('data-wbkey')) {
+    //   keywords = $('#keywords')
+    //     .attr('data-wbkey')
+    //     .trim()
+    // }
+
     const list = $('.article').find('p')
 
     let arr = []
     let index = 0
+
+    let isImgFirst = false
+    if (
+      $(list[0])
+        .prev()
+        .attr('class') === 'img_wrapper'
+    ) {
+      index = 1
+      isImgFirst = true
+    } else {
+      isImgFirst = false
+    }
 
     list.each((i, item) => {
       let obj = {}
@@ -37,7 +56,12 @@ module.exports = async url => {
         obj.imgIndex = -1
       }
 
-      if ($(item).find('strong').text().trim().length !== 0) {
+      if (
+        $(item)
+          .find('strong')
+          .text()
+          .trim().length !== 0
+      ) {
         obj.strong = true
       } else {
         obj.strong = false
@@ -66,28 +90,24 @@ module.exports = async url => {
         .text()
         .trim()
 
-      while (
-        $(imgDivList[j--])
-          .prev()
-          .hasClass('img_wrapper')
-      ) {
-        if (images[j]) {
-          images[j].push(obj)
-        }
-      }
-
       if (
-        !$(item)
+        $(item)
           .prev()
           .hasClass('img_wrapper')
       ) {
+        j = j - 1
+        while (!images[j]) {
+          j--
+        }
+        images[j].push(obj)
+      } else {
         images.push([obj])
       }
     })
 
     // console.log(images);
 
-    return { title, dateSource, content: arr, images }
+    return { isImgFirst, title, dateSource, content: arr, images }
   } catch (error) {
     console.error(error)
   }
