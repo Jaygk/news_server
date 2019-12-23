@@ -3,6 +3,7 @@ const getChinaList = require('./China')
 const getWorldList = require('./world')
 const getTechList = require('./tech')
 const getEntList = require('./ent')
+const getSportsList = require('./sports')
 
 module.exports = () => {
   getRecommendList()
@@ -10,4 +11,5 @@ module.exports = () => {
   getWorldList()
   getTechList()
   getEntList()
+  getSportsList()
 }
