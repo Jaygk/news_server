@@ -4,7 +4,7 @@ const News = require('../../store')
 // 爬取推荐新闻列表（标题+url）
 module.exports = async () => {
   try {
-    const $ = await request('https://news.sina.com.cn/')
+    const $ = await request('https://news.sina.com.cn')
 
     const list = $('#syncad_1').find('a')
 

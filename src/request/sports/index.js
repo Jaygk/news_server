@@ -4,7 +4,7 @@ const request = require('../request')
 // 爬取体育新闻列表（标题+url)并保存到数据库
 module.exports = async () => {
   try {
-    const $ = await request('http://sports.sina.com.cn/')
+    const $ = await request('http://sports.sina.com.cn')
     // console.log($.html());
     const list = $('div[style="display:none!important;"]').find('li')
     // console.log(list.length)
