@@ -24,33 +24,68 @@ module.exports = async url => {
       .text()
       .trim()
 
-    // let keywords = ''
-    // if ($('#keywords').attr('data-wbkey')) {
-    //   keywords = $('#keywords')
-    //     .attr('data-wbkey')
-    //     .trim()
-    // }
+    let quotation = $('.quotation')
+      .text()
+      .trim()
+
+    // 图片列表
+    let index = 0 // 段落对应的图片下标（初始值为0）
+    const imgDivList = $('.img_wrapper')
+
+    let isImgFirst = false
+    // console.log($(imgDivList[0]).prev()[0])
+
+    const images = [] // 图片数组
+
+    if (imgDivList.length != 0) {
+      // 判断文章是否以图片开头
+      if (
+        !$(imgDivList[0]).prev()[0] ||
+        ($(imgDivList[0]).prev()[0] && $(imgDivList[0]).prev()[0].name != 'p')
+      ) {
+        // 如果是以图片开头，则让图片下标从1开始
+        index = 1
+        isImgFirst = true
+      } else {
+        isImgFirst = false
+      }
+
+      imgDivList.each((i, item) => {
+        let j = i
+        let obj = {}
+
+        obj.imgUrl = $(item) // 图片链接
+          .find('img')
+          .attr('src')
+          .trim()
+
+        obj.desc = $(item) // 图片描述
+          .find('span')
+          .text()
+          .trim()
+
+        // 判断是否为连续图片
+        if (
+          $(item)
+            .prev()
+            .hasClass('img_wrapper')
+        ) {
+          // 添加到上一个不是连续图片的图片数组中
+          j = j - 1
+          while (!images[j]) {
+            j--
+          }
+          images[j].push(obj)
+        } else {
+          images.push([obj])
+        }
+      })
+    }
 
     // 正文内容
     const list = $('.article').find('p')
 
     let arr = [] // 存储需要返回给客户端的数据
-    let index = 0 // 段落对应的图片下标（初始值为0）
-
-    let isImgFirst = false
-
-    // 判断文章是否以图片开头
-    if (
-      $(list[0])
-        .prev()
-        .attr('class') === 'img_wrapper'
-    ) {
-      // 如果是以图片开头，则让图片下标从1开始
-      index = 1
-      isImgFirst = true
-    } else {
-      isImgFirst = false
-    }
 
     list.each((i, item) => {
       let obj = {} // 存储每个段落项相关内容及标识
@@ -129,50 +164,10 @@ module.exports = async url => {
       arr.push(obj)
     })
 
-    // 图片列表
-    const imgDivList = $('.img_wrapper')
-    // console.log(imgDivList.length)
-
-    const images = [] // 图片数组
-
-    if (imgDivList.length != 0) {
-      imgDivList.each((i, item) => {
-        let j = i
-        let obj = {}
-
-        obj.imgUrl = $(item) // 图片链接
-          .find('img')
-          .attr('src')
-          .trim()
-
-        obj.desc = $(item) // 图片描述
-          .find('span')
-          .text()
-          .trim()
-
-        // 判断是否为连续图片
-        if (
-          $(item)
-            .prev()
-            .hasClass('img_wrapper')
-        ) {
-          // 添加到上一个不是连续图片的图片数组中
-          j = j - 1
-          while (!images[j]) {
-            j--
-          }
-          images[j].push(obj)
-        } else {
-          images.push([obj])
-        }
-      })
-    }
-
     // 判断页面中是否含有视频
     let video = {}
     if ($('#videoList0') != false) {
       // 使用puppeteer操作浏览器点击标签获取视频链接
-
       const browser = await puppeteer.launch()
       const page = await browser.newPage()
 
@@ -198,9 +193,20 @@ module.exports = async url => {
       video.desc = $('.video-info')
         .text()
         .trim()
+
+      // 关闭浏览器
+      browser.close()
     }
 
-    return { isImgFirst, title, dateSource, content: arr, images, video }
+    return {
+      isImgFirst,
+      title,
+      dateSource,
+      quotation,
+      content: arr,
+      images,
+      video
+    }
   } catch (error) {
     console.error(error)
   }
