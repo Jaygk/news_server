@@ -168,7 +168,9 @@ module.exports = async url => {
     let video = {}
     if ($('#videoList0') != false) {
       // 使用puppeteer操作浏览器点击标签获取视频链接
-      const browser = await puppeteer.launch()
+      const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+      })
       const page = await browser.newPage()
 
       await page.goto(url)
