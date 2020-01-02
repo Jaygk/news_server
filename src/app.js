@@ -1,6 +1,7 @@
 const Koa = require('koa')
 const router = require('./router')
 const cors = require('koa2-cors')
+const bodyParser = require('koa-bodyparser')
 
 const app = new Koa()
 
@@ -25,6 +26,7 @@ app.use(async (ctx, next) => {
   }
 })
 
+app.use(bodyParser())
 app.use(router.routes())
 app.use(router.allowedMethods())
 
