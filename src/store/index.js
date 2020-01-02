@@ -22,4 +22,4 @@ const newsItem = new Schema({
   },
 })
 
-module.exports = mongoose.model('news', newsItem)
+module.exports = mongoose.model('newsList', newsItem)
