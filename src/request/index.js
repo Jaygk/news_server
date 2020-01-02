@@ -1,5 +1,5 @@
 const getRecommendList = require('./recommend')
-const getChinaList = require('./China')
+const getChinaList = require('./china')
 const getWorldList = require('./world')
 const getTechList = require('./tech')
 const getEntList = require('./ent')
