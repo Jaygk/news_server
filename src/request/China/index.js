@@ -15,6 +15,8 @@ module.exports = async () => {
     list.each((i, item) => {
       let obj = {}
 
+      obj.type = 'china'
+
       obj.title = $(item)
         .find('a')
         .text()

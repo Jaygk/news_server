@@ -12,6 +12,8 @@ module.exports = async () => {
     let arr = []
     list.each((i, item) => {
       let obj = {}
+
+      obj.type = 'ent'
       obj.title = $(item)
         .find('a')
         .text()

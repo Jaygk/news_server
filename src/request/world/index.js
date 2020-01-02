@@ -16,6 +16,8 @@ module.exports = async () => {
     list.forEach(item => {
       // console.log(item);
       const obj = {}
+
+      obj.type = 'world'
       obj.title = item.title
       obj.url = item.url.trim()
 

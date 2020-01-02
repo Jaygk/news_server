@@ -11,6 +11,8 @@ module.exports = async () => {
     let arr = []
     list.each((i, item) => {
       let obj = {}
+
+      obj.type = 'recommend'
       obj.title = $(item)
         .text()
         .trim()
