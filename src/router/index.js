@@ -7,6 +7,7 @@ const tech = require('./tech')
 const ent = require('./ent')
 const sports = require('./sports')
 const login = require('./login')
+const historyList = require('./historyList')
 
 // 获取推荐列表
 router.get('/api/recommend', recommend.recommendList)
@@ -44,6 +45,13 @@ router.get('/api/sports', sports.sportsList)
 // 获取体育新闻详情
 router.get('/api/sports/detail', sports.sportsDetail)
 
+// 登陆
 router.post('/api/login', login.login)
+
+// 新增浏览记录
+router.post('/api/appendHList', historyList.appendList)
+
+// 获取浏览记录列表
+router.get('/api/getHList', historyList.getList)
 
 module.exports = router
