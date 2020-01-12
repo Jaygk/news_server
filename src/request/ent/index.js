@@ -34,15 +34,15 @@ module.exports = async () => {
 
     // console.log(arr);
 
-    const news = new News({
+    const news = new News.newsList({
       name: 'ent',
       type: '娱乐',
       data: arr
     })
 
-    const temp = await News.find({ name: 'ent' })
+    const temp = await News.newsList.find({ name: 'ent' })
     if (temp.length !== 0) {
-      await News.updateOne({ name: 'ent' }, { data: arr })
+      await News.newsList.updateOne({ name: 'ent' }, { data: arr })
     } else {
       await news.save()
     }

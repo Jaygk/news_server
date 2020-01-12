@@ -22,15 +22,15 @@ module.exports = async () => {
       arr.push(obj)
     })
 
-    const news = new News({
+    const news = new News.newsList({
       name: 'recommend',
       type: '推荐',
       data: arr
     })
 
-    const temp = await News.find({ name: 'recommend' })
+    const temp = await News.newsList.find({ name: 'recommend' })
     if (temp.length !== 0) {
-      await News.updateOne({ name: 'recommend' }, { data: arr })
+      await News.newsList.updateOne({ name: 'recommend' }, { data: arr })
     } else {
       await news.save()
     }

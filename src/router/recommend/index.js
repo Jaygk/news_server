@@ -6,7 +6,7 @@ const recommendList = async (ctx, next) => {
   const limit = ctx.query.limit || 30
 
   try {
-    const res = await News.find({ name: 'recommend' })
+    const res = await News.newsList.find({ name: 'recommend' })
     const data = res[0].data
     const result = data.splice(page * limit, limit)
 

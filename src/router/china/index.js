@@ -6,7 +6,7 @@ const chinaList = async (ctx, next) => {
   const limit = ctx.query.limit || 20
 
   try {
-    const res = await News.find({ name: 'china' })
+    const res = await News.newsList.find({ name: 'china' })
     const data = res[0].data
     const result = data.splice(page * limit, limit)
 

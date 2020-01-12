@@ -32,15 +32,15 @@ module.exports = async () => {
       }
     })
 
-    const news = new News({
+    const news = new News.newsList({
       name: 'sports',
       type: '体育',
       data: arr
     })
 
-    const temp = await News.find({ name: 'sports' })
+    const temp = await News.newsList.find({ name: 'sports' })
     if (temp.length !== 0) {
-      await News.updateOne({ name: 'sports' }, { data: arr })
+      await News.newsList.updateOne({ name: 'sports' }, { data: arr })
     } else {
       await news.save()
     }
