@@ -25,14 +25,18 @@ const newsList = mongoose.model(
   })
 )
 
-const historyList = mongoose.model(
-  'historyList',
+const users = mongoose.model(
+  'users',
   new Schema({
     name: {
       unique: true,
       type: String
     },
-    data: {
+    openId: {
+      unique: true,
+      type: String
+    },
+    historyList: {
       unique: true,
       type: Array
     }
@@ -41,5 +45,5 @@ const historyList = mongoose.model(
 
 module.exports = {
   newsList,
-  historyList
+  users
 }
