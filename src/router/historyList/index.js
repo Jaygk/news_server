@@ -2,15 +2,17 @@ const News = require('../../store')
 
 const appendList = async (ctx, next) => {
   try {
+    const name = ctx.request.body.userInfo.nickName
+
     const obj = {}
     obj.url = ctx.request.body.url
     obj.title = ctx.request.body.title
     obj.detailUrl = ctx.request.body.detailUrl
 
-    const list = await News.historyList.findOne({ name: '浏览记录' })
-    list.data.unshift(obj)
+    const user = await News.users.findOne({ name })
+    user.historyList.unshift(obj)
 
-    await News.historyList.updateOne({ name: '浏览记录' }, { data: list.data })
+    await News.users.updateOne({ name }, { historyList: user.historyList })
 
     ctx.body = {
       message: 'ok'
@@ -24,9 +26,10 @@ const appendList = async (ctx, next) => {
 
 const getList = async (ctx, next) => {
   try {
-    const list = await News.historyList.findOne({ name: '浏览记录' })
+    const name = ctx.request.body.userInfo.nickName
+    const user = await News.users.findOne({ name })
 
-    ctx.body = list.data
+    ctx.body = user.historyList
   } catch (error) {
     console.error(error)
   }

@@ -48,10 +48,13 @@ router.get('/api/sports/detail', sports.sportsDetail)
 // 登陆
 router.post('/api/login', login.login)
 
+// 验证登录是否过期
+router.post('/api/auth', login.checkLogin)
+
 // 新增浏览记录
 router.post('/api/appendHList', historyList.appendList)
 
 // 获取浏览记录列表
-router.get('/api/getHList', historyList.getList)
+router.post('/api/getHList', historyList.getList)
 
 module.exports = router
