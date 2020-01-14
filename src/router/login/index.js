@@ -52,11 +52,17 @@ const checkLogin = async (ctx, next) => {
     const name = ctx.request.body.userInfo.nickName
 
     const user = await News.users.findOne({ name })
-    const openId = user.openId
+    if (user) {
+      const openId = user.openId
 
-    if (openId.length > 0   ) {
-      ctx.body = {
-        errCode: false
+      if (openId.length > 0) {
+        ctx.body = {
+          errCode: false
+        }
+      } else {
+        ctx.body = {
+          errCode: true
+        }
       }
     } else {
       ctx.body = {
