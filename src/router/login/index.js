@@ -76,4 +76,19 @@ const checkLogin = async (ctx, next) => {
   await next()
 }
 
-module.exports = { login, checkLogin }
+const clearToken = async (ctx, next) => {
+  try {
+    // console.log('123')
+    const name = ctx.request.body.userInfo.nickName
+
+    await News.users.deleteOne({ name })
+
+    ctx.body = {
+      message: 'ok'
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+module.exports = { login, checkLogin, clearToken }

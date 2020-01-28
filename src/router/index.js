@@ -51,6 +51,9 @@ router.post('/api/login', login.login)
 // 验证登录是否过期
 router.post('/api/auth', login.checkLogin)
 
+// 清除Token
+router.post('/api/clear', login.clearToken)
+
 // 新增浏览记录
 router.post('/api/appendHList', historyList.appendList)
 
