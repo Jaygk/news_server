@@ -33,6 +33,9 @@ app.use(router.allowedMethods())
 const request = require('./request')
 
 request()
+const time = setInterval(() => {
+  request()
+}, 6000000)
 
 app.listen(3000, () => {
   console.log('server is running at port 3000')
